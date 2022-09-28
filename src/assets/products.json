@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "imageUrl": "img/lalique-1.jpg",
+    "name": "Lalique",
+    "title": "Vase Mures",
+    "colors": ["green", "black"],
+    "price": 435000,
+    "category": 0,
+    "rating": 4
+  },
+  {
+    "id": 0,
+    "imageUrl": "img/lalique-2.jpg",
+    "name": "Lalique",
+    "title": "Vase Merles & Raisins medium",
+    "colors": ["orange"],
+    "price": 322500,
+    "category": 0,
+    "rating": 4
+  }
+]
