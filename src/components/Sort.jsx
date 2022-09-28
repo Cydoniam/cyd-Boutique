@@ -2,6 +2,7 @@ function Sort() {
   return (
     <div className="sort">
       <div className="sort__label">
+        {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
         <svg
           width="10"
           height="6"
@@ -14,6 +15,7 @@ function Sort() {
             fill="#2C2C2C"
           />
         </svg>
+        {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
         <b>Sort by:</b>
         <span>popularity</span>
       </div>

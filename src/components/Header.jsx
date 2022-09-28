@@ -3,11 +3,7 @@ function Header() {
     <div className="header">
       <div className="container">
         <div className="header__logo">
-          <img
-            width="50"
-            src="//../../public/img/logo.png"
-            alt="Boutique Logo"
-          />
+          <img width="50" src="img/logo.png" alt="Boutique Logo" />
           <div>
             <h1>Online Boutique</h1>
             <p>Interior, Cosmetics, Accessories</p>
@@ -17,6 +13,7 @@ function Header() {
           <a href="/cart.html" className="button button--cart">
             <span>6700 ₽</span>
             <div className="button__delimiter"></div>
+            {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
             <svg
               width="18"
               height="18"
@@ -46,6 +43,7 @@ function Header() {
                 strokeLinejoin="round"
               />
             </svg>
+            {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
             <span>3</span>
           </a>
         </div>
