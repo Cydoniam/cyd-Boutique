@@ -1,38 +1,29 @@
 import React from "react";
 
-function ProductBlock({ name, title, price }) {
-  const [productCount, setProductCount] = React.useState(0);
-
-  const onClickButtonAdd = () => {
-    setProductCount(productCount + 1);
-  };
+function ProductBlock({ name, title, price, imageUrl, colors }) {
+  const [activeColor, setActiveColor] = React.useState(0);
 
   return (
     <div className="product-block">
-      <img
-        className="product-block__image"
-        src="//../../public/img/product-interior.jpg"
-        alt="Product"
-      />
+      <img className="product-block__image" src={imageUrl} alt="Product" />
       <h4 className="product-block__name">{name}</h4>
       <h5 className="product-block__title">{title}</h5>
       <div className="product-block__selector">
         <ul>
-          <li className="active">green</li>
-          <li>black</li>
-        </ul>
-        <ul>
-          <li className="active">1</li>
-          <li>2</li>
-          <li>3</li>
+          {colors.map((color, index) => (
+            <li
+              onClick={() => setActiveColor(index)}
+              className={activeColor === index ? "active" : ""}
+            >
+              {color}
+            </li>
+          ))}
         </ul>
       </div>
       <div className="product-block__bottom">
         <div className="product-block__price">{price} ₽</div>
-        <button
-          onClick={onClickButtonAdd}
-          className="button button--outline button--add"
-        >
+        <button className="button button--outline button--add">
+          {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
           <svg
             width="12"
             height="12"
@@ -45,8 +36,9 @@ function ProductBlock({ name, title, price }) {
               fill="white"
             />
           </svg>
+          {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
           <span>Add</span>
-          <i>{productCount}</i>
+          <i>0</i>
         </button>
       </div>
     </div>

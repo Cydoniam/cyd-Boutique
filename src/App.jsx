@@ -6,6 +6,8 @@ import Categories from "./components/Categories";
 import Sort from "./components/Sort";
 import ProductBlock from "./components/ProductBlock";
 
+import products from "./assets/products.json";
+
 function App() {
   return (
     <div className="section-inner">
@@ -18,13 +20,9 @@ function App() {
           </div>
           <h2 className="content__title">All products</h2>
           <div className="content__items">
-            <ProductBlock name="Lalique" title="Vase Mures" price={435000} />
-            <ProductBlock />
-            <ProductBlock />
-            <ProductBlock />
-            <ProductBlock />
-            <ProductBlock />
-            <ProductBlock />
+            {products.map((obj) => (
+              <ProductBlock {...obj} />
+            ))}
           </div>
         </div>
       </div>
