@@ -1,6 +1,6 @@
 import React from "react";
 
-function ProductBlock({ name, title, price, imageUrl, colors }) {
+function ProductBlock({ name, title, price, imageUrl, color }) {
   const [activeColor, setActiveColor] = React.useState(0);
 
   return (
@@ -10,12 +10,13 @@ function ProductBlock({ name, title, price, imageUrl, colors }) {
       <h5 className="product-block__title">{title}</h5>
       <div className="product-block__selector">
         <ul>
-          {colors.map((color, index) => (
+          {color.map((value, index) => (
             <li
+              key={value}
               onClick={() => setActiveColor(index)}
               className={activeColor === index ? "active" : ""}
             >
-              {color}
+              {value}
             </li>
           ))}
         </ul>
