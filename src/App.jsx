@@ -7,12 +7,18 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 
+export const AppContext = React.createContext();
+
 function App() {
+  const [searchValue, setSearchValue] = React.useState("");
+
+  console.log(searchValue, "input");
+
   return (
-    <div className="section-inner">
-      <Header />
-      <div className="content">
-        <div className="container">
+    <AppContext.Provider value={{ searchValue, setSearchValue }}>
+      <div className="section-inner">
+        <Header />
+        <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
@@ -20,7 +26,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </div>
+    </AppContext.Provider>
   );
 }
 

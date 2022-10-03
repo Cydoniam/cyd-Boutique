@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import Search from "./Search";
+
 function Header() {
   return (
     <div className="header">
@@ -7,12 +9,13 @@ function Header() {
         <Link to="/">
           <div className="header__logo">
             <img width="50" src="img/logo.png" alt="Boutique Logo" />
-            <div>
+            <div className="header__name">
               <h1>Online Boutique</h1>
               <p>Interior, Cosmetics, Accessories</p>
             </div>
           </div>
         </Link>
+        <Search />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>6700 ₽</span>
