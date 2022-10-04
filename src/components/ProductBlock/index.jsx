@@ -1,7 +1,28 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-function ProductBlock({ name, title, price, imageUrl, color }) {
+import { addItem } from "../../redux/slices/cartSlice.js";
+
+function ProductBlock({ id, name, title, price, imageUrl, color }) {
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) =>
+    state.cart.items.find((obj) => obj.id === id)
+  );
   const [activeColor, setActiveColor] = React.useState(0);
+
+  const addedCount = cartItem ? cartItem.count : 0;
+
+  const onClickAdd = () => {
+    const item = {
+      id,
+      name,
+      title,
+      price,
+      imageUrl,
+      colors: color[activeColor],
+    };
+    dispatch(addItem(item));
+  };
 
   return (
     <div className="product-block">
@@ -23,7 +44,10 @@ function ProductBlock({ name, title, price, imageUrl, color }) {
       </div>
       <div className="product-block__bottom">
         <div className="product-block__price">{price} ₽</div>
-        <button className="button button--outline button--add">
+        <button
+          onClick={onClickAdd}
+          className="button button--outline button--add"
+        >
           {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
           <svg
             width="12"
@@ -39,7 +63,7 @@ function ProductBlock({ name, title, price, imageUrl, color }) {
           </svg>
           {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
           <span>Add</span>
-          <i>0</i>
+          {addedCount > 0 && <i>{addedCount}</i>}
         </button>
       </div>
     </div>
