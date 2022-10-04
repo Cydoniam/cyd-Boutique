@@ -39,7 +39,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchProducts = () => {
+  const fetchProducts = async () => {
     setIsLoading(true);
 
     const sortBy = sortType.replace("-", "");
@@ -47,14 +47,16 @@ const Home = () => {
     const order = sortType.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
+    try {
+      const res = await axios.get(
         `https://63370fc865d1e8ef26793518.mockapi.io/products?page=${currentPage}&limit=10&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      );
+      setItems(res.data);
+    } catch (error) {
+      console.log("ERROR", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   React.useEffect(() => {
