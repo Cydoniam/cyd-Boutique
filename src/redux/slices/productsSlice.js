@@ -3,11 +3,12 @@ import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
   "product/fetchProductsStatus",
-  async (params) => {
+  async (params, thunkAPI) => {
     const { sortBy, category, order, search, currentPage } = params;
     const { data } = await axios.get(
       `https://63370fc865d1e8ef26793518.mockapi.io/products?page=${currentPage}&limit=10&${category}&sortBy=${sortBy}&order=${order}${search}`
     );
+    console.log(thunkAPI);
     return data;
   }
 );
@@ -40,6 +41,8 @@ const productsSlice = createSlice({
     },
   },
 });
+
+export const selectProductData = (state) => state.product;
 
 export const { setItems } = productsSlice.actions;
 

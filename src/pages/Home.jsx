@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
@@ -14,7 +15,10 @@ import ProductBlock from "../components/ProductBlock";
 import Skeleton from "../components/ProductBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { AppContext } from "../App";
-import { fetchProducts } from "../redux/slices/productsSlice.js";
+import {
+  fetchProducts,
+  selectProductData,
+} from "../redux/slices/productsSlice.js";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,13 +26,10 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { items, status } = useSelector((state) => state.product);
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
+  const { items, status } = useSelector(selectProductData);
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
   const sortType = sort.sortProperty;
-
-  const { searchValue } = React.useContext(AppContext);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
