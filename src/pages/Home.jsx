@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import qs from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +14,7 @@ import ProductBlock from "../components/ProductBlock";
 import Skeleton from "../components/ProductBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { AppContext } from "../App";
+import { fetchProducts } from "../redux/slices/productsSlice.js";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,14 +22,13 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
+  const { items, status } = useSelector((state) => state.product);
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
   );
   const sortType = sort.sortProperty;
 
   const { searchValue } = React.useContext(AppContext);
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -39,24 +38,23 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchProducts = async () => {
-    setIsLoading(true);
-
+  const getProducts = async () => {
     const sortBy = sortType.replace("-", "");
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const order = sortType.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    try {
-      const res = await axios.get(
-        `https://63370fc865d1e8ef26793518.mockapi.io/products?page=${currentPage}&limit=10&${category}&sortBy=${sortBy}&order=${order}${search}`
-      );
-      setItems(res.data);
-    } catch (error) {
-      console.log("ERROR", error);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(
+      fetchProducts({
+        sortBy,
+        category,
+        order,
+        search,
+        currentPage,
+      })
+    );
+
+    window.scrollTo(0, 0);
   };
 
   React.useEffect(() => {
@@ -90,11 +88,7 @@ const Home = () => {
   }, []);
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
-
-    if (!isSearch.current) {
-      fetchProducts();
-    }
+    getProducts();
 
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
@@ -111,7 +105,16 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">All products</h2>
-      <div className="content__items">{isLoading ? skeletons : products}</div>
+      {status === "error" ? (
+        <div className="content__error-info">
+          <h2>Not found</h2>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeletons : products}
+        </div>
+      )}
+
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
