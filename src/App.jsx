@@ -1,6 +1,8 @@
 import React from "react";
 import "./scss/app.scss";
 import { Routes, Route } from "react-router-dom";
+// import { useSelector, useDispatch } from "react-redux";
+// import { decrement, increment } from "./redux/slices/filterSlice";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -11,8 +13,8 @@ export const AppContext = React.createContext();
 
 function App() {
   const [searchValue, setSearchValue] = React.useState("");
-
-  console.log(searchValue, "input");
+  // const filter = useSelector((state) => state.filter.value);
+  // const dispatch = useDispatch();
 
   return (
     <AppContext.Provider value={{ searchValue, setSearchValue }}>
