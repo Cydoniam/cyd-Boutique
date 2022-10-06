@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice.js";
@@ -24,9 +25,11 @@ function ProductBlock({ id, name, title, price, imageUrl, color }) {
 
   return (
     <div className="product-block">
-      <img className="product-block__image" src={imageUrl} alt="Product" />
-      <h4 className="product-block__name">{name}</h4>
-      <h5 className="product-block__title">{title}</h5>
+      <Link to={`/product/${id}`}>
+        <img className="product-block__image" src={imageUrl} alt="Product" />
+        <h4 className="product-block__name">{name}</h4>
+        <h5 className="product-block__title">{title}</h5>
+      </Link>
       <div className="product-block__selector">
         <ul>
           {color.map((value, index) => (

@@ -8,7 +8,6 @@ export const fetchProducts = createAsyncThunk(
     const { data } = await axios.get(
       `https://63370fc865d1e8ef26793518.mockapi.io/products?page=${currentPage}&limit=10&${category}&sortBy=${sortBy}&order=${order}${search}`
     );
-    console.log(thunkAPI);
     return data;
   }
 );
