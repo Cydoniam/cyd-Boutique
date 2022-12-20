@@ -4,14 +4,30 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice.js";
 
-function ProductBlock({ id, name, title, price, imageUrl, color }) {
+type ProductBlockProps = {
+  id: string;
+  name: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  color: any;
+};
+
+const ProductBlock: React.FC<ProductBlockProps> = ({
+  id,
+  name,
+  title,
+  price,
+  imageUrl,
+  color,
+}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(selectCartItemById(id));
   const [activeColor, setActiveColor] = React.useState(0);
 
   const addedCount = cartItem ? cartItem.count : 0;
 
-  const onClickAdd = () => {
+  const onClickAd = () => {
     const item = {
       id,
       name,
@@ -32,7 +48,7 @@ function ProductBlock({ id, name, title, price, imageUrl, color }) {
       </Link>
       <div className="product-block__selector">
         <ul>
-          {color.map((value, index) => (
+          {color.map((value: any, index: any) => (
             <li
               key={value}
               onClick={() => setActiveColor(index)}
@@ -46,7 +62,7 @@ function ProductBlock({ id, name, title, price, imageUrl, color }) {
       <div className="product-block__bottom">
         <div className="product-block__price">{price} ₽</div>
         <button
-          onClick={onClickAdd}
+          onClick={onClickAd}
           className="button button--outline button--add"
         >
           {/* СВГШКИ КАКИЕТО УДАЛИТЬ ИХ И ЗАМЕНИТЬ */}
@@ -69,6 +85,6 @@ function ProductBlock({ id, name, title, price, imageUrl, color }) {
       </div>
     </div>
   );
-}
+};
 
 export default ProductBlock;

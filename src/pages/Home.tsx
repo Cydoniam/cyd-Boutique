@@ -14,13 +14,13 @@ import Sort, { listSort } from "../components/Sort";
 import ProductBlock from "../components/ProductBlock";
 import Skeleton from "../components/ProductBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { AppContext } from "../App";
+
 import {
   fetchProducts,
   selectProductData,
 } from "../redux/slices/productsSlice.js";
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
@@ -31,11 +31,11 @@ const Home = () => {
     useSelector(selectFilter);
   const sortType = sort.sortProperty;
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 
@@ -46,6 +46,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
+      //@ts-ignore
       fetchProducts({
         sortBy,
         category,
@@ -97,7 +98,9 @@ const Home = () => {
   const skeletons = [...new Array(10)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
+  const products = items.map((obj: any) => (
+    <ProductBlock key={obj.id} {...obj} />
+  ));
 
   return (
     <div className="container">
